@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import Home from './pages/Home'
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
       <main className="flex-1">
         <Home />
       </main>
-      <Footer />
     </div>
   )
 }
