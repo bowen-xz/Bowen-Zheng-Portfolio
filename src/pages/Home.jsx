@@ -197,6 +197,13 @@ export default function Home() {
           alt="Bowen Zheng"
           className="fade-in-low w-80 h-80 lg:w-[28rem] lg:h-[28rem] rounded-full object-cover shadow-xl ring-4 ring-gray-100 flex-shrink-0"
           style={{ animationDelay: '0s' }}
+          onError={(e) => {
+            // Retry once with a cache-busting param
+            if (!e.currentTarget.dataset.retried) {
+              e.currentTarget.dataset.retried = 'true'
+              e.currentTarget.src = `${profileImg}?retry=${Date.now()}`
+            }
+          }}
         />
         <div className="flex flex-col gap-4 md:text-left text-center">
           <h1
