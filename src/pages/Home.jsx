@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import profileImg from '../assets/profile.jpg'
+import profileImg from '../assets/profile.webp'
 
 const experiences = [
   { company: 'HBO Max - Warner Bros. Discovery', title: 'Product Manager' },
@@ -38,8 +38,15 @@ function FlyingDot({ sourceId, targetRef, targetColor, onEarlyReveal, onLanded }
       dot.style.backgroundColor = targetColor
     })
 
+    // Cache target's absolute document position once — avoids getBoundingClientRect()
+    // on every rAF frame (which forces layout reflow). Use scrollY delta instead.
+    const tr = target.getBoundingClientRect()
+    const targetDocLeft = tr.left + window.scrollX
+    const targetDocTop  = tr.top  + window.scrollY
+    const targetW = tr.width
+    const targetH = tr.height
+
     const duration = 1100
-    // Reveal content 300ms before the dot finishes landing
     const earlyTimer = setTimeout(onEarlyReveal, duration - 500)
 
     let startTime = null
@@ -52,9 +59,11 @@ function FlyingDot({ sourceId, targetRef, targetColor, onEarlyReveal, onLanded }
       const t = Math.min((ts - startTime) / duration, 1)
       const eased = easeOut(t)
 
-      const tr = target.getBoundingClientRect()
-      const tx = (tr.left + tr.width / 2 - 10 - startLeft) * eased
-      const ty = (tr.top  + tr.height / 2 - 10 - startTop)  * eased
+      // Cheap per-frame: convert cached doc coords back to current viewport
+      const curLeft = targetDocLeft - window.scrollX
+      const curTop  = targetDocTop  - window.scrollY
+      const tx = (curLeft + targetW / 2 - 10 - startLeft) * eased
+      const ty = (curTop  + targetH / 2 - 10 - startTop)  * eased
       dot.style.transform = `translate(${tx}px, ${ty}px)`
 
       if (t < 1) {
