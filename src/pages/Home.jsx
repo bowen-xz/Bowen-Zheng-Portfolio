@@ -6,12 +6,12 @@ const experiences = [
   { company: 'HBO Max - Warner Bros. Discovery', title: 'Product Manager' },
   { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager' },
   { company: 'SCNO Non-Profit Consulting', title: 'Project Manager' },
-  { company: 'Hopkins Extreme Materials Institute', title: 'Research Engineer' },
+  { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product' },
 ]
 
 const projects = [
   { name: 'Curling @ Home', desc: 'Computer Vision Curling Trainer' },
-  { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1.' },
+  { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1' },
 ]
 
 function FlyingDot({ sourceId, targetRef, targetColor, onEarlyReveal, onLanded }) {
@@ -241,7 +241,7 @@ export default function Home() {
         id="experience"
         dotId="experience-dot"
         sourceId="hero-product-dot"
-        label="Professional Experience"
+        label="Product Experience"
         dotColor="rgb(128, 216, 218)"
         extraClass="pt-24"
       >
