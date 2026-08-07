@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { Link } from 'react-router-dom'
 import profileImg from '../assets/profile.webp'
 
 const experiences = [
   { company: 'HBO Max - Warner Bros. Discovery', title: 'Product Manager' },
   { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager' },
   { company: 'SCNO Non-Profit Consulting', title: 'Project Manager' },
-  { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product' },
+  { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product', to: '/hemi' },
 ]
 
 const projects = [
@@ -163,16 +164,24 @@ function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16
   )
 }
 
-function RailCard({ label, subtitle, className = 'flex-1 min-w-64' }) {
-  return (
-    <div className={`${className} snap-start px-5`}>
+function RailCard({ label, subtitle, to, className = 'flex-1 min-w-64' }) {
+  const inner = (
+    <>
       <div className="h-48 bg-gray-100" />
       <div className="py-4">
         <p className="text-base font-bold uppercase tracking-widest text-gray-900 mb-1">{label}</p>
         {subtitle && <h3 className="text-lg font-normal text-gray-500 leading-snug">{subtitle}</h3>}
       </div>
-    </div>
+    </>
   )
+  if (to) {
+    return (
+      <Link to={to} className={`${className} snap-start px-5 block hover:opacity-80 transition-opacity`}>
+        {inner}
+      </Link>
+    )
+  }
+  return <div className={`${className} snap-start px-5`}>{inner}</div>
 }
 
 export default function Home() {
@@ -262,8 +271,8 @@ export default function Home() {
         extraClass="pt-24"
       >
         <div className="flex divide-x divide-gray-400 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-8 lg:px-16">
-          {experiences.map(({ company, title }) => (
-            <RailCard key={company} label={company} subtitle={title} />
+          {experiences.map(({ company, title, to }) => (
+            <RailCard key={company} label={company} subtitle={title} to={to} />
           ))}
         </div>
       </RailSection>
