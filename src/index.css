@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out both;
+}
+
+.fade-in-opacity {
+  animation: fadeInOpacity 0.7s ease-out both;
+}
+
+.fade-in-low {
+  animation: fadeInOpacity 0.7s ease-out both, slideUpLow 0.7s ease-out both;
+}
+
+@keyframes slideUpLow {
+  from { transform: translateY(60px); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fadeInOpacity {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Work Sans', system-ui, sans-serif;
+    margin: 0;
+  }
+}
