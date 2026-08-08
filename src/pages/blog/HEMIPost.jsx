@@ -4,14 +4,9 @@ import thumbnail from '../../assets/hemi/thumbnail.webp'
 import hemi1    from '../../assets/hemi/hemi1.webp'
 import hemi2    from '../../assets/hemi/hemi2.webp'
 
-const TEAL = 'rgb(128, 216, 218)'
-
 function SectionHeading({ children }) {
   return (
-    <p
-      className="text-xs font-bold uppercase tracking-widest mb-3"
-      style={{ color: TEAL }}
-    >
+    <p className="text-lg font-bold uppercase tracking-widest text-black mb-3">
       {children}
     </p>
   )
@@ -21,7 +16,7 @@ function Bullets({ items }) {
   return (
     <ul className="space-y-2">
       {items.map((item, i) => (
-        <li key={i} className="flex gap-3 text-gray-700 leading-relaxed">
+        <li key={i} className="flex gap-3 text-lg text-gray-700 leading-relaxed">
           <span className="mt-2 w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
           {item}
         </li>
@@ -50,13 +45,13 @@ export default function HEMIPost() {
       />
 
       {/* Header */}
-      <div className="max-w-3xl mx-auto px-8 lg:px-0 py-12">
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 py-12">
+        <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-3">
           Hopkins Extreme Materials Institute
-        </p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-          Initiated Manufacturing Product
         </h1>
+        <p className="text-2xl lg:text-3xl font-normal text-gray-500 leading-tight mb-6">
+          Initiated Manufacturing Product
+        </p>
         <div className="border-t border-gray-200 mb-8" />
 
         {/* Product Summary */}
@@ -66,7 +61,7 @@ export default function HEMIPost() {
         </p>
       </div>
 
-      {/* Thumbnail + Problem */}
+      {/* Thumbnail + Problem/Solution */}
       <div className="max-w-5xl mx-auto px-8 lg:px-0 mb-16">
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div>
@@ -85,25 +80,43 @@ export default function HEMIPost() {
               Multilayered precision machined aluminum flyer plate
             </p>
           </div>
-          <div className="pt-2">
-            <SectionHeading>Problem</SectionHeading>
-            <Bullets items={[
-              'Aluminum flyer plate manufacturing (components for laser projectile impact testing) operated at suboptimal throughput of 1 unit per hour, creating significant production constraints.',
-              'Manufacturing process relied heavily on manual intern labor, limiting scalability and consistency.',
-            ]} />
+          <div className="pt-2 space-y-8">
+            <div>
+              <SectionHeading>Problem</SectionHeading>
+              <Bullets items={[
+                'Aluminum flyer plate manufacturing (components for laser projectile impact testing) operated at suboptimal throughput of 1 unit per hour, creating significant production constraints.',
+                'Manufacturing process relied heavily on manual intern labor, limiting scalability and consistency.',
+              ]} />
+            </div>
+            <div>
+              <SectionHeading>Solution</SectionHeading>
+              <Bullets items={[
+                'Originated parallel manufacturing system utilizing custom CAD-modeled tooling and fixtures to enable parallel production workflows.',
+                'Developed intuitive visual interface with real-time quality detection capabilities to streamline defect identification and enable continuous process improvement.',
+              ]} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Solution + HEMI 1 */}
+      {/* Process/Impact + HEMI 1 */}
       <div className="max-w-5xl mx-auto px-8 lg:px-0 mb-16">
         <div className="grid md:grid-cols-2 gap-10 items-start">
-          <div className="pt-2">
-            <SectionHeading>Solution</SectionHeading>
-            <Bullets items={[
-              'Originated parallel manufacturing system utilizing custom CAD-modeled tooling and fixtures to enable parallel production workflows.',
-              'Developed intuitive visual interface with real-time quality detection capabilities to streamline defect identification and enable continuous process improvement.',
-            ]} />
+          <div className="pt-2 space-y-8">
+            <div>
+              <SectionHeading>Process</SectionHeading>
+              <Bullets items={[
+                'Facilitated cross-functional stakeholder alignment across engineering, research, and manufacturing teams to define requirements and success metrics.',
+                'Implemented iterative design methodology with continuous quality measurement to optimize manufacturing processes and maintain product standards.',
+              ]} />
+            </div>
+            <div>
+              <SectionHeading>Impact</SectionHeading>
+              <Bullets items={[
+                'Achieved 300% increase in manufacturing throughput, transforming production capacity and operational efficiency.',
+                'Improved projectile impact shot quality assurance with 10% enhancement in error detection accuracy, reducing downstream testing failures.',
+              ]} />
+            </div>
           </div>
           <img
             src={hemi1}
@@ -119,12 +132,12 @@ export default function HEMIPost() {
         </div>
       </div>
 
-      {/* HEMI 2 — full width */}
-      <div className="w-full mb-16">
+      {/* HEMI 2 — camera rig, closing image after all writing */}
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 pb-24">
         <img
           src={hemi2}
           alt="HEMI lab environment"
-          className="w-full object-cover max-h-[500px]"
+          className="w-full object-cover"
           onError={(e) => {
             if (!e.currentTarget.dataset.retried) {
               e.currentTarget.dataset.retried = 'true'
@@ -132,26 +145,6 @@ export default function HEMIPost() {
             }
           }}
         />
-      </div>
-
-      {/* Process + Impact */}
-      <div className="max-w-5xl mx-auto px-8 lg:px-0 pb-24">
-        <div className="grid md:grid-cols-2 gap-16">
-          <div>
-            <SectionHeading>Process</SectionHeading>
-            <Bullets items={[
-              'Facilitated cross-functional stakeholder alignment across engineering, research, and manufacturing teams to define requirements and success metrics.',
-              'Implemented iterative design methodology with continuous quality measurement to optimize manufacturing processes and maintain product standards.',
-            ]} />
-          </div>
-          <div>
-            <SectionHeading>Impact</SectionHeading>
-            <Bullets items={[
-              'Achieved 300% increase in manufacturing throughput, transforming production capacity and operational efficiency.',
-              'Improved projectile impact shot quality assurance with 10% enhancement in error detection accuracy, reducing downstream testing failures.',
-            ]} />
-          </div>
-        </div>
       </div>
 
     </div>

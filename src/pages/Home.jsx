@@ -1,17 +1,20 @@
 import { useRef, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import profileImg from '../assets/profile.webp'
+import hemiThumbnail from '../assets/hemi/thumbnail.webp'
+import curlingThumbnail from '../assets/curling/thumbnail.webp'
+import unionLinkThumbnail from '../assets/union-link/unionlink1.webp'
 
 const experiences = [
   { company: 'HBO Max - Warner Bros. Discovery', title: 'Product Manager' },
-  { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager' },
+  { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager', to: '/union-link', thumbnail: unionLinkThumbnail },
   { company: 'SCNO Non-Profit Consulting', title: 'Project Manager' },
-  { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product', to: '/hemi' },
+  { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product', to: '/hemi', thumbnail: hemiThumbnail },
 ]
 
 const projects = [
-  { name: 'Curling @ Home', desc: 'Computer Vision Curling Trainer' },
+  { name: 'Curling @ Home', desc: 'Computer Vision Curling Trainer', to: '/curling', thumbnail: curlingThumbnail },
   { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1' },
 ]
 
@@ -101,15 +104,16 @@ function FlyingDot({ sourceId, targetRef, targetColor, onEarlyReveal, onLanded }
   )
 }
 
-function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16', children }) {
+function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16', skipAnimation = false, children }) {
   const sectionRef = useRef(null)
   const dotRef = useRef(null)
   const [flying, setFlying] = useState(false)
-  const [contentVisible, setContentVisible] = useState(false)
-  const [dotVisible, setDotVisible] = useState(false)
-  const triggered = useRef(false)
+  const [contentVisible, setContentVisible] = useState(skipAnimation)
+  const [dotVisible, setDotVisible] = useState(skipAnimation)
+  const triggered = useRef(skipAnimation)
 
   useEffect(() => {
+    if (skipAnimation) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !triggered.current) {
@@ -121,7 +125,7 @@ function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
-  }, [])
+  }, [skipAnimation])
 
   return (
     <section id={id} ref={sectionRef} className={`pb-8 ${extraClass}`}>
@@ -164,10 +168,24 @@ function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16
   )
 }
 
-function RailCard({ label, subtitle, to, className = 'flex-1 min-w-64' }) {
+function RailCard({ label, subtitle, to, thumbnail, className = 'flex-1 min-w-64' }) {
   const inner = (
     <>
-      <div className="h-48 bg-gray-100" />
+      {thumbnail ? (
+        <img
+          src={thumbnail}
+          alt={label}
+          className="h-48 w-full object-cover"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.retried) {
+              e.currentTarget.dataset.retried = 'true'
+              e.currentTarget.src = `${thumbnail}?retry=${Date.now()}`
+            }
+          }}
+        />
+      ) : (
+        <div className="h-48 bg-gray-100" />
+      )}
       <div className="py-4">
         <p className="text-base font-bold uppercase tracking-widest text-gray-900 mb-1">{label}</p>
         {subtitle && <h3 className="text-lg font-normal text-gray-500 leading-snug">{subtitle}</h3>}
@@ -186,6 +204,11 @@ function RailCard({ label, subtitle, to, className = 'flex-1 min-w-64' }) {
 
 export default function Home() {
   const arrowInnerRef = useRef(null)
+  // Arriving via a back button (hash-linked straight to #experience or
+  // #projects) should land on that section with everything already
+  // settled — no rail fly-ins.
+  const { hash } = useLocation()
+  const [skipAnimations] = useState(() => hash === '#experience' || hash === '#projects')
 
   const handleArrowEnter = () => {
     const el = arrowInnerRef.current
@@ -269,10 +292,11 @@ export default function Home() {
         label="Product Experience"
         dotColor="rgb(128, 216, 218)"
         extraClass="pt-24"
+        skipAnimation={skipAnimations}
       >
         <div className="flex divide-x divide-gray-400 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-8 lg:px-16">
-          {experiences.map(({ company, title, to }) => (
-            <RailCard key={company} label={company} subtitle={title} to={to} />
+          {experiences.map(({ company, title, to, thumbnail }) => (
+            <RailCard key={company} label={company} subtitle={title} to={to} thumbnail={thumbnail} />
           ))}
         </div>
       </RailSection>
@@ -285,10 +309,11 @@ export default function Home() {
         label="Projects"
         dotColor="rgb(255, 59, 37)"
         extraClass="pt-8"
+        skipAnimation={skipAnimations}
       >
         <div className="flex divide-x divide-gray-400 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-8 lg:px-16">
-          {projects.map(({ name, desc }) => (
-            <RailCard key={name} label={name} subtitle={desc} className="w-1/4 flex-none min-w-64" />
+          {projects.map(({ name, desc, to, thumbnail }) => (
+            <RailCard key={name} label={name} subtitle={desc} to={to} thumbnail={thumbnail} className="w-1/4 flex-none min-w-64" />
           ))}
         </div>
       </RailSection>
