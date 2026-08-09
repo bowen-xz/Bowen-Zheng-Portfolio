@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import HEMIPost from './pages/blog/HEMIPost'
 import CurlingPost from './pages/blog/CurlingPost'
 import UnionLinkPost from './pages/blog/UnionLinkPost'
+import HBOPost from './pages/blog/HBOPost'
 
 function ScrollToTop() {
   const { hash } = useLocation()
@@ -38,6 +39,7 @@ function Layout() {
           <Route path="/hemi" element={<HEMIPost />} />
           <Route path="/curling" element={<CurlingPost />} />
           <Route path="/union-link" element={<UnionLinkPost />} />
+          <Route path="/hbo-max" element={<HBOPost />} />
         </Routes>
       </main>
     </div>

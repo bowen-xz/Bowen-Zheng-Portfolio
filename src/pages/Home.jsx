@@ -5,17 +5,20 @@ import profileImg from '../assets/profile.webp'
 import hemiThumbnail from '../assets/hemi/thumbnail.webp'
 import curlingThumbnail from '../assets/curling/thumbnail.webp'
 import unionLinkThumbnail from '../assets/union-link/unionlink1.webp'
+import hboThumbnail from '../assets/hbo/thumbnail.webp'
+import friendventureThumbnail from '../assets/friendventure/thumbnail.webp'
 
 const experiences = [
-  { company: 'HBO Max - Warner Bros. Discovery', title: 'Product Manager' },
-  { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager', to: '/union-link', thumbnail: unionLinkThumbnail },
+  { company: 'HBO Max\n(Warner Bros. Discovery)', title: 'Product Manager Intern', to: '/hbo-max', thumbnail: hboThumbnail },
+  { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager Intern', to: '/union-link', thumbnail: unionLinkThumbnail },
   { company: 'SCNO Non-Profit Consulting', title: 'Project Manager' },
   { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product', to: '/hemi', thumbnail: hemiThumbnail },
 ]
 
 const projects = [
-  { name: 'Curling @ Home', desc: 'Computer Vision Curling Trainer', to: '/curling', thumbnail: curlingThumbnail },
+  { name: 'Curling @ Home', desc: 'Computer Vision Curling Simulator', to: '/curling', thumbnail: curlingThumbnail },
   { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1' },
+  { name: 'Friendventure', desc: 'Agentic Co-op Games Discovery', thumbnail: friendventureThumbnail, comingSoon: true },
 ]
 
 function FlyingDot({ sourceId, targetRef, targetColor, onEarlyReveal, onLanded }) {
@@ -168,26 +171,35 @@ function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16
   )
 }
 
-function RailCard({ label, subtitle, to, thumbnail, className = 'flex-1 min-w-64' }) {
+function RailCard({ label, subtitle, to, thumbnail, comingSoon, className = 'flex-1 min-w-64' }) {
   const inner = (
     <>
       {thumbnail ? (
-        <img
-          src={thumbnail}
-          alt={label}
-          className="h-48 w-full object-cover"
-          onError={(e) => {
-            if (!e.currentTarget.dataset.retried) {
-              e.currentTarget.dataset.retried = 'true'
-              e.currentTarget.src = `${thumbnail}?retry=${Date.now()}`
-            }
-          }}
-        />
+        <div className="relative">
+          <img
+            src={thumbnail}
+            alt={label}
+            className="h-48 w-full object-cover"
+            onError={(e) => {
+              if (!e.currentTarget.dataset.retried) {
+                e.currentTarget.dataset.retried = 'true'
+                e.currentTarget.src = `${thumbnail}?retry=${Date.now()}`
+              }
+            }}
+          />
+          {comingSoon && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+              <span className="px-3 py-1.5 bg-white text-gray-900 text-base font-bold uppercase tracking-widest">
+                Coming Soon
+              </span>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="h-48 bg-gray-100" />
       )}
       <div className="py-4">
-        <p className="text-base font-bold uppercase tracking-widest text-gray-900 mb-1">{label}</p>
+        <p className="text-base font-bold uppercase tracking-widest text-gray-900 mb-1 whitespace-pre-line">{label}</p>
         {subtitle && <h3 className="text-lg font-normal text-gray-500 leading-snug">{subtitle}</h3>}
       </div>
     </>
@@ -306,14 +318,14 @@ export default function Home() {
         id="projects"
         dotId="projects-dot"
         sourceId="experience-dot"
-        label="Projects"
+        label="AI / ML Projects"
         dotColor="rgb(255, 59, 37)"
         extraClass="pt-8"
         skipAnimation={skipAnimations}
       >
         <div className="flex divide-x divide-gray-400 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-8 lg:px-16">
-          {projects.map(({ name, desc, to, thumbnail }) => (
-            <RailCard key={name} label={name} subtitle={desc} to={to} thumbnail={thumbnail} className="w-1/4 flex-none min-w-64" />
+          {projects.map(({ name, desc, to, thumbnail, comingSoon }) => (
+            <RailCard key={name} label={name} subtitle={desc} to={to} thumbnail={thumbnail} comingSoon={comingSoon} className="w-1/4 flex-none min-w-64" />
           ))}
         </div>
       </RailSection>

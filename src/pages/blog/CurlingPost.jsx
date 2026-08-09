@@ -3,6 +3,7 @@ import banner   from '../../assets/curling/banner.webp'
 import curling1 from '../../assets/curling/curling1.webp'
 import curling2 from '../../assets/curling/curling2.webp'
 import curling3 from '../../assets/curling/curling3.webp'
+import curling4 from '../../assets/curling/curling4.webp'
 
 function SectionHeading({ children }) {
   return (
@@ -45,7 +46,7 @@ export default function CurlingPost() {
       />
 
       {/* Header */}
-      <div className="max-w-5xl mx-auto px-8 lg:px-0 py-12">
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 pt-12 pb-20">
         <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-3">
           Curling @ Home
         </h1>
@@ -130,7 +131,7 @@ export default function CurlingPost() {
       </div>
 
       {/* Block 5: Curling 3 + Impact/Awards */}
-      <div className="max-w-5xl mx-auto px-8 lg:px-0 pb-24">
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 mb-16">
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <img
             src={curling3}
@@ -160,6 +161,21 @@ export default function CurlingPost() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Closing image after all writing */}
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 pb-24">
+        <img
+          src={curling4}
+          alt="Curling @ Home rapid-prototyped stone and sliding footwear"
+          className="w-full object-cover"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.retried) {
+              e.currentTarget.dataset.retried = 'true'
+              e.currentTarget.src = `${curling4}?retry=${Date.now()}`
+            }
+          }}
+        />
       </div>
 
     </div>

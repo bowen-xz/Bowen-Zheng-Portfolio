@@ -53,7 +53,7 @@ export default function UnionLinkPost() {
       />
 
       {/* Header */}
-      <div className="max-w-5xl mx-auto px-8 lg:px-0 py-12">
+      <div className="max-w-5xl mx-auto px-8 lg:px-0 pt-12 pb-20">
         <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-3">
           Union Link Ecommerce Corp.
         </h1>
