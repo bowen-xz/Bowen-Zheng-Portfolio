@@ -1,23 +1,26 @@
 import { useRef, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
+import RetryImage from '../components/RetryImage'
 import profileImg from '../assets/profile.webp'
 import hemiThumbnail from '../assets/hemi/thumbnail.webp'
 import curlingThumbnail from '../assets/curling/thumbnail.webp'
 import unionLinkThumbnail from '../assets/union-link/unionlink1.webp'
 import hboThumbnail from '../assets/hbo/thumbnail.webp'
 import friendventureThumbnail from '../assets/friendventure/thumbnail.webp'
+import scnoThumbnail from '../assets/scno/thumbnail.webp'
+import f1PeanutThumbnail from '../assets/f1-peanut/f1p1.webp'
 
 const experiences = [
   { company: 'HBO Max\n(Warner Bros. Discovery)', title: 'Product Manager Intern', to: '/hbo-max', thumbnail: hboThumbnail },
   { company: 'Union Link Ecommerce Corp.', title: 'AI / ML Product Manager Intern', to: '/union-link', thumbnail: unionLinkThumbnail },
-  { company: 'SCNO Non-Profit Consulting', title: 'Project Manager' },
+  { company: 'SCNO Non-Profit Consulting', title: 'Project Manager', to: '/scno', thumbnail: scnoThumbnail, thumbnailPosition: 'center 20%' },
   { company: 'Hopkins Extreme Materials Institute', title: 'Initiated Manufacturing Product', to: '/hemi', thumbnail: hemiThumbnail },
 ]
 
 const projects = [
   { name: 'Curling @ Home', desc: 'Computer Vision Curling Simulator', to: '/curling', thumbnail: curlingThumbnail },
-  { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1' },
+  { name: 'F1 Peanut Gallery', desc: 'AI insights from live F1', to: '/f1-peanut-gallery', thumbnail: f1PeanutThumbnail },
   { name: 'Friendventure', desc: 'Agentic Co-op Games Discovery', thumbnail: friendventureThumbnail, comingSoon: true },
 ]
 
@@ -171,21 +174,16 @@ function RailSection({ id, dotId, sourceId, label, dotColor, extraClass = 'pt-16
   )
 }
 
-function RailCard({ label, subtitle, to, thumbnail, comingSoon, className = 'flex-1 min-w-64' }) {
+function RailCard({ label, subtitle, to, thumbnail, thumbnailPosition, comingSoon, className = 'flex-1 min-w-64' }) {
   const inner = (
     <>
       {thumbnail ? (
         <div className="relative">
-          <img
+          <RetryImage
             src={thumbnail}
             alt={label}
             className="h-48 w-full object-cover"
-            onError={(e) => {
-              if (!e.currentTarget.dataset.retried) {
-                e.currentTarget.dataset.retried = 'true'
-                e.currentTarget.src = `${thumbnail}?retry=${Date.now()}`
-              }
-            }}
+            style={thumbnailPosition ? { objectPosition: thumbnailPosition } : undefined}
           />
           {comingSoon && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/40">
@@ -244,19 +242,12 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex flex-col md:flex-row items-center justify-center min-h-screen pt-16 pb-40 px-8 lg:px-16 gap-20 lg:gap-28">
-        <img
+      <section className="relative flex flex-col md:flex-row items-center justify-start md:justify-center min-h-screen pt-24 md:pt-16 pb-40 px-8 lg:px-16 gap-6 md:gap-20 lg:gap-28">
+        <RetryImage
           src={profileImg}
           alt="Bowen Zheng"
           className="fade-in-low w-80 h-80 lg:w-[28rem] lg:h-[28rem] rounded-full object-cover shadow-xl ring-4 ring-gray-100 flex-shrink-0"
           style={{ animationDelay: '0s' }}
-          onError={(e) => {
-            // Retry once with a cache-busting param
-            if (!e.currentTarget.dataset.retried) {
-              e.currentTarget.dataset.retried = 'true'
-              e.currentTarget.src = `${profileImg}?retry=${Date.now()}`
-            }
-          }}
         />
         <div className="flex flex-col gap-4 md:text-left text-center">
           <h1
@@ -278,19 +269,21 @@ export default function Home() {
         </div>
 
         <div
-          className="fade-in-opacity absolute bottom-8 left-0 right-0 flex justify-center"
+          className="fade-in-opacity absolute bottom-8 md:bottom-16 left-0 right-0 flex justify-center"
           style={{ animationDelay: '0.9s' }}
         >
           <button
             onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}
-            className="opacity-30 hover:opacity-70 transition-opacity duration-200 cursor-pointer block bg-transparent border-0 p-0"
+            className="group cursor-pointer block bg-transparent border-0 p-0"
             onMouseEnter={handleArrowEnter}
             onMouseLeave={handleArrowLeave}
           >
             <div ref={arrowInnerRef} className="animate-bounce" style={{ pointerEvents: 'none' }}>
-              <svg width="110" height="110" viewBox="0 0 24 24" fill="currentColor" className="text-gray-900">
-                <path d="M12 16l-6-6h12l-6 6z" />
-              </svg>
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gray-900 bg-white group-hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-8 md:h-8 text-gray-900 group-hover:text-white transition-colors duration-200 -rotate-90">
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+              </div>
             </div>
           </button>
         </div>
@@ -307,8 +300,8 @@ export default function Home() {
         skipAnimation={skipAnimations}
       >
         <div className="flex divide-x divide-gray-400 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-8 lg:px-16">
-          {experiences.map(({ company, title, to, thumbnail }) => (
-            <RailCard key={company} label={company} subtitle={title} to={to} thumbnail={thumbnail} />
+          {experiences.map(({ company, title, to, thumbnail, thumbnailPosition }) => (
+            <RailCard key={company} label={company} subtitle={title} to={to} thumbnail={thumbnail} thumbnailPosition={thumbnailPosition} />
           ))}
         </div>
       </RailSection>

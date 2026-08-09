@@ -6,6 +6,8 @@ import HEMIPost from './pages/blog/HEMIPost'
 import CurlingPost from './pages/blog/CurlingPost'
 import UnionLinkPost from './pages/blog/UnionLinkPost'
 import HBOPost from './pages/blog/HBOPost'
+import SCNOPost from './pages/blog/SCNOPost'
+import F1PeanutPost from './pages/blog/F1PeanutPost'
 
 function ScrollToTop() {
   const { hash } = useLocation()
@@ -27,9 +29,6 @@ function ScrollToTop() {
 }
 
 function Layout() {
-  const location = useLocation()
-  const isHome = location.pathname === '/'
-
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
@@ -40,6 +39,8 @@ function Layout() {
           <Route path="/curling" element={<CurlingPost />} />
           <Route path="/union-link" element={<UnionLinkPost />} />
           <Route path="/hbo-max" element={<HBOPost />} />
+          <Route path="/scno" element={<SCNOPost />} />
+          <Route path="/f1-peanut-gallery" element={<F1PeanutPost />} />
         </Routes>
       </main>
     </div>

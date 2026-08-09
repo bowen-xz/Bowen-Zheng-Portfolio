@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 export default function Navbar() {
   const { pathname } = useLocation()
   const isBlogPost = pathname !== '/'
-  const backTarget = pathname === '/curling' ? '/#projects' : '/#experience'
+  const projectRoutes = ['/curling', '/f1-peanut-gallery']
+  const backTarget = projectRoutes.includes(pathname) ? '/#projects' : '/#experience'
 
   return (
     <>
@@ -11,9 +12,9 @@ export default function Navbar() {
         <Link
           to={backTarget}
           aria-label="Back to portfolio"
-          className="fixed top-28 left-8 lg:left-16 z-[60] flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-500 text-gray-500 hover:text-gray-900 hover:border-gray-900 transition-colors bg-white"
+          className="fixed top-28 left-8 lg:left-16 z-[60] flex items-center justify-center w-14 h-14 rounded-full border-2 border-gray-900 text-gray-900 bg-white hover:bg-gray-900 hover:text-white transition-colors"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </Link>
