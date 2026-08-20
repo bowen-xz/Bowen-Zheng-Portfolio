@@ -9,8 +9,8 @@ export default function HBOPost() {
   return (
     <PostLayout banner={banner} bannerAlt="HBO Max, Warner Bros. Discovery">
       <PostHeader title="HBO Max (Warner Bros. Discovery)" subtitle="Product Manager Intern">
-        Originated the Reward Badges vision to strengthen HBO Max's core value around its prestige originals,
-        projected to cut monthly churn by <strong>5%</strong>, and separately proposed a data platform projected
+        Led a redesign of HBO Max's cyclical subscriber flow to strengthen its core value around prestige originals,
+        projected to reduce churn by <strong>5.2 million subscribers per year</strong>, and separately proposed a data platform projected
         to cut user-traits creation time from <strong>3 weeks to 3 days</strong>.
       </PostHeader>
 
@@ -32,7 +32,7 @@ export default function HBOPost() {
           <div className="pt-2">
             <SectionHeading>Process</SectionHeading>
             <Bullets items={[
-              'Built a fully interactive, end-to-end Reward Badges prototype spanning frontend UX to backend data using AI-assisted development, turning the vision into something stakeholders could click through.',
+              'Built a fully interactive, end-to-end prototype of the redesigned cyclical subscriber flow spanning frontend UX to backend data using AI-assisted development, turning the vision into something stakeholders could click through.',
               'Led a cross-functional team of designers to refine UX and data scientists to integrate real user data into the prototype.',
               "Uncovered a reframing insight: subscribers retain for the caliber of HBO's originals (Game of Thrones, Succession, The Last of Us, etc.) not for catalog volume, and no competitor's library size could substitute for that quality.",
             ]} />
@@ -46,7 +46,7 @@ export default function HBOPost() {
           <div className="pt-2">
             <SectionHeading>Solution</SectionHeading>
             <p className="text-lg text-gray-700 leading-relaxed mb-2">
-              Translated the research findings into a vision for Reward Badges, designed to amplify HBO's originals
+              Translated the research findings into a redesign of the cyclical subscriber flow, designed to amplify HBO's originals
               rather than compete on volume, including features such as:
             </p>
             <Bullets items={[
@@ -67,8 +67,8 @@ export default function HBOPost() {
             <div>
               <SectionHeading>Impact</SectionHeading>
               <Bullets items={[
-                "Projected Reward Badges to reduce monthly churn by 5%, driving content discovery and solidifying HBO's core product value.",
-                'Drove alignment across 5 key stakeholder teams — User Retention, Forge Data Platform, HBO Originals Promotion, Recommendations, and Profile Design — securing buy-in and roadmap prioritization for Reward Badges.',
+                "Projected the redesigned cyclical subscriber flow to reduce churn by 5.2 million subscribers per year, driving content discovery and solidifying HBO's core product value.",
+                'Drove alignment across 5 key stakeholder teams — User Retention, Forge Data Platform, HBO Originals Promotion, Recommendations, and Profile Design — securing buy-in and roadmap prioritization for the redesigned cyclical subscriber flow.',
               ]} />
             </div>
             <div>
