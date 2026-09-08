@@ -10,7 +10,7 @@ export default function HBOPost() {
     <PostLayout banner={banner} bannerAlt="HBO Max, Warner Bros. Discovery">
       <PostHeader title="HBO Max (Warner Bros. Discovery)" subtitle="Product Manager Intern">
         Led a redesign of HBO Max's cyclical subscriber flow to strengthen its core value around prestige originals,
-        projected to reduce churn by <strong>5.2 million subscribers per year</strong>, and separately proposed a data platform projected
+        projected to reduce churn by <strong>1.6 million subscribers per year</strong>, and separately proposed a data platform projected
         to cut user-traits creation time from <strong>3 weeks to 3 days</strong>.
       </PostHeader>
 
@@ -67,7 +67,7 @@ export default function HBOPost() {
             <div>
               <SectionHeading>Impact</SectionHeading>
               <Bullets items={[
-                "Projected the redesigned cyclical subscriber flow to reduce churn by 5.2 million subscribers per year, driving content discovery and solidifying HBO's core product value.",
+                "Projected the redesigned cyclical subscriber flow to reduce churn by 1.6 million subscribers per year, driving content discovery and solidifying HBO's core product value.",
                 'Drove alignment across 5 key stakeholder teams — User Retention, Forge Data Platform, HBO Originals Promotion, Recommendations, and Profile Design — securing buy-in and roadmap prioritization for the redesigned cyclical subscriber flow.',
               ]} />
             </div>
