@@ -10,7 +10,7 @@ export default function UnionLinkPost() {
     <PostLayout banner={banner} bannerAlt="Union Link Ecommerce Corp." bannerClassName="object-[center_58%]">
       <PostHeader title="Union Link Ecommerce Corp." subtitle="AI / ML Product Manager">
         Rebuilt the steel price forecasting engine and overhauled market-data workflows for enterprise steel
-        buyers, driving a <strong>5.3x</strong> improvement in prediction accuracy while reducing manual data
+        buyers, reducing prediction error by <strong>81%</strong> while cutting manual data
         processing overhead by <strong>50%</strong>.
       </PostHeader>
 
@@ -80,7 +80,7 @@ export default function UnionLinkPost() {
           <div>
             <SubHeading>Customer Outcomes</SubHeading>
             <Bullets items={[
-              'Achieved 5.3x improvement in prediction accuracy, substantially increasing forecast reliability for procurement planning.',
+              'Reduced prediction error by 81%, substantially increasing forecast reliability for procurement planning.',
               'Delivered personalized market intelligence based on customer geography and product mix.',
             ]} />
           </div>
